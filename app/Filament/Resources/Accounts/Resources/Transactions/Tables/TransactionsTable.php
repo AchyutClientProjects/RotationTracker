@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Accounts\Resources\Transactions\Tables;
 
 use App\Enums\TransactionType;
@@ -12,7 +14,7 @@ use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class TransactionsTable
+final class TransactionsTable
 {
     public static function configure(Table $table): Table
     {
@@ -26,7 +28,7 @@ class TransactionsTable
                     ->searchable(),
                 TextColumn::make('amount')
                     ->money('NPR')
-                    ->color(fn (Transaction $record): array => match ($record->type) {
+                    ->color(fn (Transaction $transaction): array => match ($transaction->type) {
                         TransactionType::Expense, TransactionType::TransferOut => Color::Red,
                         TransactionType::Income, TransactionType::TransferIn => Color::Green,
                     })

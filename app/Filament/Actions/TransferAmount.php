@@ -15,7 +15,7 @@ use Filament\Support\Icons\Heroicon;
 
 final class TransferAmount
 {
-    public static function make($name = 'Transfer Amount'): Action
+    public static function make(?string $name = 'Transfer Amount'): Action
     {
         return Action::make($name)
             ->slideOver()
@@ -24,7 +24,7 @@ final class TransferAmount
                 Select::make('to_account_id')
                     ->label('To Account')
                     ->required()
-                    ->options(fn (Account $account): array => Account::where('id', '!=', $account->id)->pluck('name', 'id')->toArray())
+                    ->options(fn (Account $account): array => Account::query()->where('id', '!=', $account->id)->pluck('name', 'id')->toArray())
                     ->placeholder('Select an account'),
                 TextInput::make('amount')
                     ->label('Amount')
@@ -49,7 +49,7 @@ final class TransferAmount
             ])
             ->action(function (array $data, Account $account): void {
                 $charge = $data['include_charge'] ? ($data['charge'] ?? 0) : 0;
-                $toAccount = Account::findOrFail($data['to_account_id']);
+                $toAccount = Account::query()->findOrFail($data['to_account_id']);
 
                 $accountBalance = (float) $account->balance - (float) $data['amount'] - (float) $charge;
                 $account->update(['balance' => $accountBalance]);

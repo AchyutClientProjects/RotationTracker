@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\Accounts\Resources\Transactions;
 
 use App\Filament\Resources\Accounts\AccountResource;
@@ -16,7 +18,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
-class TransactionResource extends Resource
+final class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 
