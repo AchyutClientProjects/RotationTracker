@@ -20,47 +20,35 @@ final class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('relatedAccount.name')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('relatedAccount.name'),
                 TextColumn::make('type')
-                    ->badge()
-                    ->searchable(),
+                    ->badge(),
                 TextColumn::make('amount')
                     ->money('NPR')
                     ->color(fn (Transaction $transaction): array => match ($transaction->type) {
                         TransactionType::Expense, TransactionType::TransferOut => Color::Red,
                         TransactionType::Income, TransactionType::TransferIn => Color::Green,
                     })
-                    ->badge()
-                    ->sortable(),
+                    ->badge(),
                 TextColumn::make('charge')
-                    ->money('NPR')
-                    ->sortable(),
+                    ->money('NPR'),
                 TextColumn::make('balance')
                     ->money('NPR')
-                    ->badge()
-                    ->sortable(),
+                    ->badge(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Created')
+                    ->since()
+                    ->dateTimeTooltip()
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
+            ->defaultSort('created_at', 'desc')
+            ->paginated(false)
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                ]),
             ]);
     }
 }
