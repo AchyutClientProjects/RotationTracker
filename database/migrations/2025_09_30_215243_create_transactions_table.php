@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Models\Account;
+use App\Enums\TransactionType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,15 +15,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
-            $table->id();
-            $table->foreignIdFor(App\Models\Account::class)
+        Schema::create('transactions', function (Blueprint $blueprint): void {
+            $blueprint->id();
+            $blueprint->foreignIdFor(Account::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('type')->default(App\Enums\TransactionType::Income);
-            $table->decimal('amount', 15);
-            $table->decimal('charge', 15)->default(10);
-            $table->timestamps();
+            $blueprint->string('type')->default(TransactionType::Income);
+            $blueprint->decimal('amount', 15);
+            $blueprint->decimal('charge', 15)->default(10);
+            $blueprint->timestamps();
         });
     }
 

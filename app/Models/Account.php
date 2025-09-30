@@ -12,6 +12,8 @@ final class Account extends Model
 {
     use HasTheSlug;
 
+    protected string $sluggableColumn = 'name';
+
     protected function casts(): array
     {
         return [
