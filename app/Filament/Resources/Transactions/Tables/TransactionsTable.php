@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\Transactions\Tables;
 
+use App\Enums\TransactionType;
+use App\Models\Transaction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -17,17 +20,26 @@ class TransactionsTable
             ->columns([
                 TextColumn::make('account.name')
                     ->searchable(),
-                TextColumn::make('related_account_id')
+                TextColumn::make('relatedAccount.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('type')
                     ->badge()
                     ->searchable(),
                 TextColumn::make('amount')
-                    ->numeric()
+                    ->money('NPR')
+                    ->color(fn (Transaction $record): array => match ($record->type) {
+                        TransactionType::Expense, TransactionType::TransferOut => Color::Red,
+                        TransactionType::Income, TransactionType::TransferIn => Color::Green,
+                    })
+                    ->badge()
                     ->sortable(),
                 TextColumn::make('charge')
-                    ->numeric()
+                    ->money('NPR')
+                    ->sortable(),
+                TextColumn::make('balance')
+                    ->money('NPR')
+                    ->badge()
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->dateTime()

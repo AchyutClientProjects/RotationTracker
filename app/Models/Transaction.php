@@ -41,6 +41,12 @@ final class Transaction extends Model
         return $this->belongsTo(Account::class);
     }
 
+    /** @returns BelongsTo<Account> */
+    public function relatedAccount(): BelongsTo
+    {
+        return $this->belongsTo(Account::class);
+    }
+
     protected function casts(): array
     {
         return [
