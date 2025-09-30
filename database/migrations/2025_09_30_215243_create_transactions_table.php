@@ -26,6 +26,7 @@ return new class extends Migration
             $blueprint->string('type')->default(TransactionType::Income);
             $blueprint->decimal('amount', 15);
             $blueprint->decimal('charge', 15)->default(10);
+            $blueprint->decimal('balance', 15);
             $blueprint->timestamps();
         });
     }
