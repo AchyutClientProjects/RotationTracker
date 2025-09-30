@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->storedAs("
+                CONCAT(
+                    COALESCE(account_name, ''),
+                    CASE WHEN account_name IS NOT NULL AND bank_name IS NOT NULL THEN ' - ' ELSE '' END,
+                    COALESCE(bank_name, ''),
+                    CASE WHEN account_number IS NOT NULL THEN CONCAT(' (', account_number, ')') ELSE '' END
+                )
+            ");
             $table->string('slug');
             $table->string('type')->default(App\Enums\AccountType::Bank);
             $table->string('account_name')->nullable();
