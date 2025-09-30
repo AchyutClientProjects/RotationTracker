@@ -6,6 +6,8 @@ namespace App\Models;
 
 use AchyutN\LaravelHelpers\Traits\HasTheSlug;
 use App\Enums\AccountType;
+use App\Observers\AccountObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -44,6 +46,7 @@ use Illuminate\Support\Carbon;
  *
  * @mixin \Eloquent
  */
+#[ObservedBy(AccountObserver::class)]
 final class Account extends Model
 {
     use HasTheSlug;
