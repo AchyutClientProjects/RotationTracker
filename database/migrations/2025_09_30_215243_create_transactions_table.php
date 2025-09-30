@@ -20,6 +20,9 @@ return new class extends Migration
             $blueprint->foreignIdFor(Account::class)
                 ->constrained()
                 ->cascadeOnDelete();
+            $blueprint->foreignIdFor(Account::class, 'related_account_id')
+                ->constrained()
+                ->cascadeOnDelete();
             $blueprint->string('type')->default(TransactionType::Income);
             $blueprint->decimal('amount', 15);
             $blueprint->decimal('charge', 15)->default(10);
