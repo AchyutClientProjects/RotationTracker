@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Accounts\Pages;
 
+use App\Filament\Actions\ReceiveIncome;
 use App\Filament\Resources\Accounts\AccountResource;
 use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
@@ -16,6 +17,7 @@ final class ViewAccount extends ViewRecord
     {
         return [
             EditAction::make(),
+            ReceiveIncome::make(),
         ];
     }
 }
