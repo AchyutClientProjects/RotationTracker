@@ -44,14 +44,15 @@ final class AddExpense
             ->action(function (array $data, Account $account): void {
                 $charge = $data['include_charge'] ? ($data['charge'] ?? 0) : 0;
 
+                $balance = (float) $account->balance - (float) $data['amount'] - (float) $charge;
+                $account->update(['balance' => $balance]);
+
                 $account->transactions()->create([
                     'type' => TransactionType::Expense,
                     'amount' => $data['amount'],
                     'charge' => $charge,
+                    'balance' => $balance,
                 ]);
-
-                $account->balance -= ($data['amount'] + $charge);
-                $account->save();
             })
             ->requiresConfirmation()
             ->successNotificationTitle('Expense Added');

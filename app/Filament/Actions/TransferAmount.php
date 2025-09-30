@@ -51,23 +51,27 @@ final class TransferAmount
                 $charge = $data['include_charge'] ? ($data['charge'] ?? 0) : 0;
                 $toAccount = Account::findOrFail($data['to_account_id']);
 
+                $accountBalance = (float) $account->balance - (float) $data['amount'] - (float) $charge;
+                $account->update(['balance' => $accountBalance]);
+
                 $account->transactions()->create([
                     'type' => TransactionType::TransferOut,
                     'amount' => $data['amount'],
                     'charge' => $charge,
                     'related_account_id' => $toAccount->id,
+                    'balance' => $accountBalance,
                 ]);
-                $account->balance -= ($data['amount'] + $charge);
-                $account->save();
+
+                $toAccountBalance = (float) $toAccount->balance + (float) $data['amount'];
+                $toAccount->update(['balance' => $toAccountBalance]);
 
                 $toAccount->transactions()->create([
                     'type' => TransactionType::TransferIn,
                     'amount' => $data['amount'],
                     'charge' => 0,
                     'related_account_id' => $account->id,
+                    'balance' => $toAccountBalance,
                 ]);
-                $toAccount->balance += $data['amount'];
-                $toAccount->save();
             })
             ->requiresConfirmation()
             ->successNotificationTitle('Amount Transferred');

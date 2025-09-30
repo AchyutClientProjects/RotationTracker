@@ -28,14 +28,15 @@ final class ReceiveIncome
                     ->placeholder('0.00'),
             ])
             ->action(function (array $data, Account $account): void {
+                $balance = (float) $account->balance + (float) $data['amount'];
+                $account->update(['balance' => $balance]);
+
                 $account->transactions()->create([
                     'type' => TransactionType::Income,
                     'amount' => $data['amount'],
                     'charge' => 0,
+                    'balance' => $balance,
                 ]);
-
-                $account->balance += $data['amount'];
-                $account->save();
             })
             ->requiresConfirmation()
             ->successNotificationTitle('Income Received');
