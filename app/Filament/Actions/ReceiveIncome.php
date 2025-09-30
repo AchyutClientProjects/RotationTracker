@@ -27,15 +27,15 @@ final class ReceiveIncome
                     ->step(0.01)
                     ->placeholder('0.00'),
             ])
-            ->action(function (array $data, Account $record): void {
-                $record->transactions()->create([
+            ->action(function (array $data, Account $account): void {
+                $account->transactions()->create([
                     'type' => TransactionType::Income,
                     'amount' => $data['amount'],
                     'charge' => 0,
                 ]);
 
-                $record->balance += $data['amount'];
-                $record->save();
+                $account->balance += $data['amount'];
+                $account->save();
             })
             ->requiresConfirmation()
             ->successNotificationTitle('Income Received');
