@@ -17,11 +17,9 @@ final class AccountsTable
         return $table
             ->columns([
                 Stack::make([
-                    TextColumn::make('name')
-                        ->searchable(),
+                    TextColumn::make('name'),
                     TextColumn::make('type')
-                        ->badge()
-                        ->searchable(),
+                        ->badge(),
                     TextColumn::make('balance')
                         ->money('NPR')
                         ->badge(),
