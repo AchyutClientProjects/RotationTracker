@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('type')->default(App\Enums\AccountType::Bank);
+            $table->string('account_name')->nullable();
+            $table->string('account_number')->nullable();
+            $table->string('bank_name')->nullable();
             $table->decimal('balance', 15)->default(0);
             $table->timestamps();
         });
