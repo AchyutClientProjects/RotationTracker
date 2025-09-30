@@ -32,7 +32,7 @@ final class AddExpense
                     ->label('Include Charge')
                     ->live(),
                 TextInput::make('charge')
-                    ->hidden(fn (Get $get) => ! $get('include_charge'))
+                    ->hidden(fn (Get $get): bool => ! $get('include_charge'))
                     ->label('Charge')
                     ->default(10)
                     ->numeric()
