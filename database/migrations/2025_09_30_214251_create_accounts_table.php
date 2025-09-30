@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Enums\AccountType;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,9 +14,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->storedAs("
+        Schema::create('accounts', function (Blueprint $blueprint): void {
+            $blueprint->id();
+            $blueprint->string('name')->storedAs("
                 CASE
                     WHEN account_name IS NULL AND bank_name IS NULL AND account_number IS NULL
                         THEN 'Cash'
@@ -27,13 +28,13 @@ return new class extends Migration
                     )
                 END
             ")->nullable();
-            $table->string('slug')->nullable();
-            $table->string('type')->default(App\Enums\AccountType::Bank);
-            $table->string('account_name')->nullable();
-            $table->string('account_number')->nullable();
-            $table->string('bank_name')->nullable();
-            $table->decimal('balance', 15)->default(0);
-            $table->timestamps();
+            $blueprint->string('slug')->nullable();
+            $blueprint->string('type')->default(AccountType::Bank);
+            $blueprint->string('account_name')->nullable();
+            $blueprint->string('account_number')->nullable();
+            $blueprint->string('bank_name')->nullable();
+            $blueprint->decimal('balance', 15)->default(0);
+            $blueprint->timestamps();
         });
     }
 

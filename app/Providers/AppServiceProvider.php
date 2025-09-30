@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
-use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;

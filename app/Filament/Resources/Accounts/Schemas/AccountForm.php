@@ -33,21 +33,21 @@ final class AccountForm
                             ->numeric()
                             ->default(0),
                     ]),
-                Section::make(fn (Get $get) => $get('type') === AccountType::Bank ? 'Bank Details' : 'Mobile Wallet Details')
-                    ->description(fn (Get $get) => $get('type') === AccountType::Bank ? 'These details are used for bank transactions.' : 'These details are used for mobile wallet transactions.')
-                    ->hidden(fn (Get $get) => $get('type') === AccountType::Cash)
+                Section::make(fn (Get $get): string => $get('type') === AccountType::Bank ? 'Bank Details' : 'Mobile Wallet Details')
+                    ->description(fn (Get $get): string => $get('type') === AccountType::Bank ? 'These details are used for bank transactions.' : 'These details are used for mobile wallet transactions.')
+                    ->hidden(fn (Get $get): bool => $get('type') === AccountType::Cash)
                     ->aside()
                     ->schema([
                         TextInput::make('account_name')
-                            ->label(fn (Get $get) => $get('type') === AccountType::Bank ? 'Account Holder Name' : 'Wallet Holder Name')
+                            ->label(fn (Get $get): string => $get('type') === AccountType::Bank ? 'Account Holder Name' : 'Wallet Holder Name')
                             ->required()
                             ->maxLength(255),
                         TextInput::make('account_number')
-                            ->label(fn (Get $get) => $get('type') === AccountType::Bank ? 'Account Number' : 'Wallet Number')
+                            ->label(fn (Get $get): string => $get('type') === AccountType::Bank ? 'Account Number' : 'Wallet Number')
                             ->required()
                             ->maxLength(50),
                         TextInput::make('bank_name')
-                            ->label(fn (Get $get) => $get('type') === AccountType::Bank ? 'Bank Name' : 'Wallet Provider')
+                            ->label(fn (Get $get): string => $get('type') === AccountType::Bank ? 'Bank Name' : 'Wallet Provider')
                             ->required()
                             ->maxLength(255),
                     ]),
