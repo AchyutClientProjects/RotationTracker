@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Transactions\Schemas;
+namespace App\Filament\Resources\Accounts\Resources\Transactions\Schemas;
 
 use App\Enums\TransactionType;
 use Filament\Forms\Components\Select;
@@ -13,12 +13,9 @@ class TransactionForm
     {
         return $schema
             ->components([
-                Select::make('account_id')
-                    ->relationship('account', 'name')
+                Select::make('related_account_id')
+                    ->relationship('relatedAccount', 'name')
                     ->required(),
-                TextInput::make('related_account_id')
-                    ->required()
-                    ->numeric(),
                 Select::make('type')
                     ->options(TransactionType::class)
                     ->default('income')
@@ -30,6 +27,9 @@ class TransactionForm
                     ->required()
                     ->numeric()
                     ->default(10),
+                TextInput::make('balance')
+                    ->required()
+                    ->numeric(),
             ]);
     }
 }

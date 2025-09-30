@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Transactions\Tables;
+namespace App\Filament\Resources\Accounts\Resources\Transactions\Tables;
 
 use App\Enums\TransactionType;
 use App\Models\Transaction;
@@ -18,8 +18,6 @@ class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('account.name')
-                    ->searchable(),
                 TextColumn::make('relatedAccount.name')
                     ->numeric()
                     ->sortable(),

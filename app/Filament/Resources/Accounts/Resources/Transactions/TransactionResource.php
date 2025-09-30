@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Transactions;
+namespace App\Filament\Resources\Accounts\Resources\Transactions;
 
-use App\Filament\Resources\Transactions\Pages\CreateTransaction;
-use App\Filament\Resources\Transactions\Pages\EditTransaction;
-use App\Filament\Resources\Transactions\Pages\ListTransactions;
-use App\Filament\Resources\Transactions\Pages\ViewTransaction;
-use App\Filament\Resources\Transactions\Schemas\TransactionForm;
-use App\Filament\Resources\Transactions\Schemas\TransactionInfolist;
-use App\Filament\Resources\Transactions\Tables\TransactionsTable;
+use App\Filament\Resources\Accounts\AccountResource;
+use App\Filament\Resources\Accounts\Resources\Transactions\Pages\CreateTransaction;
+use App\Filament\Resources\Accounts\Resources\Transactions\Pages\EditTransaction;
+use App\Filament\Resources\Accounts\Resources\Transactions\Pages\ViewTransaction;
+use App\Filament\Resources\Accounts\Resources\Transactions\Schemas\TransactionForm;
+use App\Filament\Resources\Accounts\Resources\Transactions\Schemas\TransactionInfolist;
+use App\Filament\Resources\Accounts\Resources\Transactions\Tables\TransactionsTable;
 use App\Models\Transaction;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -21,6 +21,8 @@ class TransactionResource extends Resource
     protected static ?string $model = Transaction::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    protected static ?string $parentResource = AccountResource::class;
 
     public static function form(Schema $schema): Schema
     {
@@ -47,7 +49,6 @@ class TransactionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => ListTransactions::route('/'),
             'create' => CreateTransaction::route('/create'),
             'view' => ViewTransaction::route('/{record}'),
             'edit' => EditTransaction::route('/{record}/edit'),
