@@ -12,6 +12,7 @@ use App\Filament\Resources\Accounts\RelationManagers\TransactionsRelationManager
 use App\Filament\Resources\Accounts\Schemas\AccountForm;
 use App\Filament\Resources\Accounts\Schemas\AccountInfolist;
 use App\Filament\Resources\Accounts\Tables\AccountsTable;
+use App\Filament\Resources\Accounts\Widgets\StatsOverview;
 use App\Models\Account;
 use BackedEnum;
 use Filament\Resources\Resource;
@@ -46,6 +47,13 @@ final class AccountResource extends Resource
     {
         return [
             'transactions' => TransactionsRelationManager::class,
+        ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            StatsOverview::class,
         ];
     }
 
