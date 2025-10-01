@@ -13,21 +13,28 @@ use Illuminate\Support\Carbon;
 /**
  * @property int $id
  * @property int $account_id
+ * @property int|null $related_account_id
  * @property TransactionType $type
  * @property string $amount
  * @property string $charge
+ * @property string $balance
+ * @property string|null $note
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Account $account
+ * @property-read Account|null $relatedAccount
  *
  * @method static Builder<static>|Transaction newModelQuery()
  * @method static Builder<static>|Transaction newQuery()
  * @method static Builder<static>|Transaction query()
  * @method static Builder<static>|Transaction whereAccountId($value)
  * @method static Builder<static>|Transaction whereAmount($value)
+ * @method static Builder<static>|Transaction whereBalance($value)
  * @method static Builder<static>|Transaction whereCharge($value)
  * @method static Builder<static>|Transaction whereCreatedAt($value)
  * @method static Builder<static>|Transaction whereId($value)
+ * @method static Builder<static>|Transaction whereNote($value)
+ * @method static Builder<static>|Transaction whereRelatedAccountId($value)
  * @method static Builder<static>|Transaction whereType($value)
  * @method static Builder<static>|Transaction whereUpdatedAt($value)
  *
