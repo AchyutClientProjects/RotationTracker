@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Accounts\Resources\Transactions\Pages;
 
 use App\Filament\Resources\Accounts\Resources\Transactions\TransactionResource;
-use Filament\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
 final class ViewTransaction extends ViewRecord
@@ -15,7 +14,7 @@ final class ViewTransaction extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            EditAction::make(),
+            //
         ];
     }
 }

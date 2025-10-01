@@ -17,7 +17,6 @@ final class AccountInfolist
         return $schema
             ->columns(1)
             ->components([
-
                 Section::make('Base Details')
                     ->description('These details contains type and balance.')
                     ->aside()

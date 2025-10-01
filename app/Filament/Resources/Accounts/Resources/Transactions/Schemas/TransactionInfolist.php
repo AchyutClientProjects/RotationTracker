@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Filament\Resources\Accounts\Resources\Transactions\Schemas;
 
-use Filament\Infolists\Components\TextEntry;
+use App\Filament\Schemas\AccountDetailsSchema;
+use App\Models\Transaction;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 
 final class TransactionInfolist
@@ -12,23 +14,18 @@ final class TransactionInfolist
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns()
             ->components([
-                TextEntry::make('relatedAccount.name')
-                    ->label('Related account'),
-                TextEntry::make('type')
-                    ->badge(),
-                TextEntry::make('amount')
-                    ->numeric(),
-                TextEntry::make('charge')
-                    ->numeric(),
-                TextEntry::make('balance')
-                    ->numeric(),
-                TextEntry::make('created_at')
-                    ->dateTime()
-                    ->placeholder('-'),
-                TextEntry::make('updated_at')
-                    ->dateTime()
-                    ->placeholder('-'),
+                Section::make('Account Details')
+                    ->description('These details are related to the account.')
+                    ->relationship('account')
+                    ->collapsed()
+                    ->components(fn (Schema $schema, Transaction $transaction) => AccountDetailsSchema::configure($schema, $transaction->account)->getComponents()),
+                Section::make('Related Account Details')
+                    ->description('These details are related to the associated account, if any.')
+                    ->relationship('relatedAccount')
+                    ->collapsed()
+                    ->components(fn (Schema $schema, Transaction $transaction) => AccountDetailsSchema::configure($schema, $transaction->relatedAccount)->getComponents()),
             ]);
     }
 }

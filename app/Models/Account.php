@@ -25,9 +25,8 @@ use Illuminate\Support\Carbon;
  * @property string $balance
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Collection<int, Transaction> $transactions
+ * @property-read Collection<int, \App\Models\Transaction> $transactions
  * @property-read int|null $transactions_count
- *
  * @method static Builder<static>|Account findSimilarSlugs(string $attribute, array $config, string $slug)
  * @method static Builder<static>|Account newModelQuery()
  * @method static Builder<static>|Account newQuery()
@@ -42,8 +41,7 @@ use Illuminate\Support\Carbon;
  * @method static Builder<static>|Account whereSlug($value)
  * @method static Builder<static>|Account whereType($value)
  * @method static Builder<static>|Account whereUpdatedAt($value)
- * @method static Builder<static>|Account withUniqueSlugConstraints(Model $model, string $attribute, array $config, string $slug)
- *
+ * @method static Builder<static>|Account withUniqueSlugConstraints(\Illuminate\Database\Eloquent\Model $model, string $attribute, array $config, string $slug)
  * @mixin \Eloquent
  */
 #[ObservedBy(AccountObserver::class)]
