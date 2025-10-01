@@ -20,7 +20,7 @@ final class TransactionsTable
         return $table
             ->columns([
                 TextColumn::make('relatedAccount.name')
-                    ->url(fn (Transaction $record): string => $record->relatedAccount !== null ? AccountResource::getUrl('view', ['record' => $record->relatedAccount]) : '')
+                    ->url(fn (Transaction $transaction): string => $transaction->relatedAccount !== null ? AccountResource::getUrl('view', ['record' => $transaction->relatedAccount]) : '')
                     ->placeholder('N/A'),
                 TextColumn::make('type')
                     ->badge(),
