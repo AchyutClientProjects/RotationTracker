@@ -7,7 +7,6 @@ namespace App\Filament\Resources\Accounts\Resources\Transactions\Tables;
 use App\Enums\TransactionType;
 use App\Filament\Resources\Accounts\AccountResource;
 use App\Models\Transaction;
-use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Support\Colors\Color;
 use Filament\Tables\Columns\TextColumn;
