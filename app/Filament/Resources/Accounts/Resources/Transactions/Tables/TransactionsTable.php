@@ -51,7 +51,6 @@ final class TransactionsTable
             ->paginated(false)
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
             ]);
     }
 }
