@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Filament\Resources\Accounts\Resources\Transactions\Tables;
 
 use App\Enums\TransactionType;
+use App\Filament\Resources\Accounts\AccountResource;
 use App\Models\Transaction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Support\Colors\Color;
@@ -20,7 +19,9 @@ final class TransactionsTable
     {
         return $table
             ->columns([
-                TextColumn::make('relatedAccount.name'),
+                TextColumn::make('relatedAccount.name')
+                    ->url(fn (Transaction $record): string => $record->relatedAccount !== null ? AccountResource::getUrl('view', ['record' => $record->relatedAccount]) : '')
+                    ->placeholder('N/A'),
                 TextColumn::make('type')
                     ->badge(),
                 TextColumn::make('amount')
