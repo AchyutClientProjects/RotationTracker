@@ -11,7 +11,7 @@ use Filament\Schemas\Schema;
 
 final class AccountDetailsSchema
 {
-    public static function configure(Schema $schema, Account $account): Schema
+    public static function configure(Schema $schema, ?Account $account): Schema
     {
         return $schema
             ->components([

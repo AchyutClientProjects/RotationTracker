@@ -25,11 +25,13 @@ final class TransactionInfolist
                         Section::make('Account Details')
                             ->description('These are the details related to the account this transaction belongs to.')
                             ->relationship('account')
+                            ->hidden(fn (Transaction $transaction): bool => $transaction->account === null)
                             ->collapsed()
                             ->components(fn (Schema $schema, Transaction $transaction): array => AccountDetailsSchema::configure($schema, $transaction->account)->getComponents()),
                         Section::make('Related Account Details')
                             ->description('These are the details related to the other account involved in this transaction, if any.')
                             ->relationship('relatedAccount')
+                            ->hidden(fn (Transaction $transaction): bool => $transaction->relatedAccount === null)
                             ->collapsed()
                             ->components(fn (Schema $schema, Transaction $transaction): array => AccountDetailsSchema::configure($schema, $transaction->relatedAccount)->getComponents()),
                     ]),
