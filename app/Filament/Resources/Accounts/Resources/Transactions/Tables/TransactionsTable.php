@@ -32,6 +32,8 @@ final class TransactionsTable
                     })
                     ->badge(),
                 TextColumn::make('charge')
+                    ->badge()
+                    ->color(fn (Transaction $transaction): array => $transaction->charge > 0 ? Color::Red : Color::Gray)
                     ->money('NPR'),
                 TextColumn::make('balance')
                     ->money('NPR')
