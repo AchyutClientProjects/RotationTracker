@@ -8,6 +8,7 @@ use App\Enums\TransactionType;
 use App\Models\Account;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Icons\Heroicon;
@@ -40,6 +41,10 @@ final class AddExpense
                     ->minValue(0)
                     ->step(0.01)
                     ->placeholder('0.00'),
+                Textarea::make('note')
+                    ->label('Note')
+                    ->rows(3)
+                    ->placeholder('Optional note...'),
             ])
             ->action(function (array $data, Account $account): void {
                 $charge = $data['include_charge'] ? ($data['charge'] ?? 0) : 0;
@@ -52,6 +57,7 @@ final class AddExpense
                     'amount' => $data['amount'],
                     'charge' => $charge,
                     'balance' => $balance,
+                    'note' => $data['note'] ?? null,
                 ]);
             })
             ->requiresConfirmation()

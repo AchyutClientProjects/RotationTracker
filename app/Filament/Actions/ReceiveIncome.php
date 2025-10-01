@@ -7,6 +7,7 @@ namespace App\Filament\Actions;
 use App\Enums\TransactionType;
 use App\Models\Account;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\Icons\Heroicon;
 
@@ -26,6 +27,10 @@ final class ReceiveIncome
                     ->minValue(0.01)
                     ->step(0.01)
                     ->placeholder('0.00'),
+                Textarea::make('note')
+                    ->label('Note')
+                    ->rows(3)
+                    ->placeholder('Optional note...'),
             ])
             ->action(function (array $data, Account $account): void {
                 $balance = (float) $account->balance + (float) $data['amount'];
@@ -36,6 +41,7 @@ final class ReceiveIncome
                     'amount' => $data['amount'],
                     'charge' => 0,
                     'balance' => $balance,
+                    'note' => $data['note'] ?? null,
                 ]);
             })
             ->requiresConfirmation()

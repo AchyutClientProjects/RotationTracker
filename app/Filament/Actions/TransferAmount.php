@@ -9,6 +9,7 @@ use App\Models\Account;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Support\Icons\Heroicon;
@@ -46,6 +47,10 @@ final class TransferAmount
                     ->minValue(0)
                     ->step(0.01)
                     ->placeholder('0.00'),
+                Textarea::make('note')
+                    ->label('Note')
+                    ->rows(3)
+                    ->placeholder('Optional note...'),
             ])
             ->action(function (array $data, Account $account): void {
                 $charge = $data['include_charge'] ? ($data['charge'] ?? 0) : 0;
@@ -60,6 +65,7 @@ final class TransferAmount
                     'charge' => $charge,
                     'related_account_id' => $toAccount->id,
                     'balance' => $accountBalance,
+                    'note' => $data['note'] ?? null,
                 ]);
 
                 $toAccountBalance = (float) $toAccount->balance + (float) $data['amount'];
@@ -71,6 +77,7 @@ final class TransferAmount
                     'charge' => 0,
                     'related_account_id' => $account->id,
                     'balance' => $toAccountBalance,
+                    'note' => $data['note'] ?? null,
                 ]);
             })
             ->requiresConfirmation()
